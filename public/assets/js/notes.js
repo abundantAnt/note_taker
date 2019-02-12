@@ -15,8 +15,8 @@ $(document).ready(function () {
       method: "POST",
       data: newNote // this is req.body
     }).then(function (dbResponse) {
-      console.log(dbResponse);
-      renderNotes();
+      console.log("new note", dbResponse);
+      location.reload();
     });
   })
 
@@ -44,5 +44,42 @@ $(document).ready(function () {
       }
     })
   }
-})
+ 
+  $(document).on("click", ".deleteNote", function (e) {
 
+    // package up data from form
+    const deleteNote = $(this).parent().parent().parent().attr("id");
+
+    $.ajax({
+      url: `/api/notes/${deleteNote}`,
+      method: "DELETE",
+    }).then(function () {
+      location.reload();
+    });
+  })
+
+  $(document).on("click", ".editNote", function (e) {
+
+    // package up data from form
+    const editNote = $(this).parent().parent().parent().attr("id");
+
+    $.ajax({
+      url: `/api/notes/${editNote}`,
+      method: "PUT",
+    }).then(function () {
+      location.reload();
+    });
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+})
