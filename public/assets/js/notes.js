@@ -61,14 +61,22 @@ $(document).ready(function () {
   $(document).on("click", ".editNote", function (e) {
 
     // package up data from form
-    const editNote = $(this).parent().parent().parent().attr("id");
+    const parent = $(this).parents(".card-body");
+    const titleInput = parent.children("h5").text().trim;
+    const bodyInput = parent.children("p").text().trim;
+    let inputText = $("<input>").attr("placeholder", titleInput);
+    let inputBody = $("<input>").attr("placeholder", bodyInput);
 
-    $.ajax({
-      url: `/api/notes/${editNote}`,
-      method: "PUT",
-    }).then(function () {
-      location.reload();
-    });
+    parent.html(inputText)
+      // .append(inputBody)
+  
+
+    // $.ajax({
+    //   url: `/api/notes/${editNote}`,
+    //   method: "PUT",
+    // }).then(function () {
+    //   location.reload();
+    // });
   })
 
 
