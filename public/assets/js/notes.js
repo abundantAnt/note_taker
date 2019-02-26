@@ -58,25 +58,32 @@ $(document).ready(function () {
     });
   })
 
-  $(document).on("click", ".editNote", function (e) {
+  $(document).on("click", ".editNote", function () {
 
     // package up data from form
     const parent = $(this).parents(".card-body");
-    const titleInput = parent.children("h5").text().trim;
-    const bodyInput = parent.children("p").text().trim;
-    let inputText = $("<input>").attr("placeholder", titleInput);
-    let inputBody = $("<input>").attr("placeholder", bodyInput);
+    const titleInput = parent.find("h5").text();
+    const bodyInput = parent.find("p").text();
+    let editedText = `<input value="${titleInput}">
+                      <textarea>${bodyInput}</textarea>
+                      <a href="/notes" <i class="fas fa-ban"></i></a>
+                      <i class="far fa-save"></i>`
 
-    parent.html(inputText)
-      // .append(inputBody)
-  
+    parent.html(editedText)
+  })
 
-    // $.ajax({
-    //   url: `/api/notes/${editNote}`,
-    //   method: "PUT",
-    // }).then(function () {
-    //   location.reload();
-    // });
+  $(document).on("click", ".fa-save", function () {
+    
+    const parent = $(this).parents(".card-body");
+
+    $.ajax({
+      url: '/api/notes/' + parent.attr("id"),
+      method: "PUT",
+      data: {
+        title: parent.find("input").val().trim(),
+        body: parent.find("textarea").val().trim()
+      }
+    }).then(()=>location.reload());
   })
 
 
