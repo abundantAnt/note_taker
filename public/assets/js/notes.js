@@ -63,8 +63,8 @@ $(document).ready(function () {
     // package up data from form
     const parent = $(this).parents(".card-body");
     const titleInput = parent.find("h5").text();
-    const bodyInput = parent.find("p").text();
-    let editedText = `<input value="${titleInput}">
+    const bodyInput = parent.find("p").text().trim();
+    let editedText = `<input value="${titleInput}"><br><br>
                       <textarea>${bodyInput}</textarea>
                       <a href="/notes" <i class="fas fa-ban"></i></a>
                       <i class="far fa-save"></i>`
